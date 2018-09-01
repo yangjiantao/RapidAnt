@@ -1,2 +1,2 @@
 # RapidAnt
-Collect Sample Code or Lib that Frequently-used for faster coding.
+> 收集常用组件、类库、工具类等可复用代码并持续更新，旨在提高开发效率。
