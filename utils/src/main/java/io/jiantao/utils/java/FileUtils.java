@@ -2,6 +2,7 @@ package io.jiantao.utils.java;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -9,7 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.DigestInputStream;
@@ -1152,6 +1155,54 @@ public class FileUtils {
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
         return filePath.substring(lastPoi + 1);
+    }
+
+    /**
+     * suggest read small size file
+     * @param filePath
+     * @return
+     * @throws IOException
+     */
+    public static String readFileToString(String filePath) throws IOException {
+        FileInputStream fin = null;
+        BufferedReader reader = null;
+        try {
+            File fl = new File(filePath);
+            fin = new FileInputStream(fl);
+            reader = new BufferedReader(new InputStreamReader(fin));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            return sb.toString();
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+            if (fin != null) {
+                fin.close();
+            }
+        }
+    }
+
+    /**
+     * write string to file.  cover exist data
+     * @param content
+     * @param filePath
+     * @throws IOException
+     */
+    public static void writeStringToFile(String content, String filePath) throws IOException {
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(filePath);
+            out.print(content);
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
