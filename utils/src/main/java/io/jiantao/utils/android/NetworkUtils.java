@@ -15,13 +15,17 @@ import android.text.format.Formatter;
 import android.util.Log;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
@@ -34,6 +38,11 @@ import static android.content.Context.WIFI_SERVICE;
  * @version 1.0
  */
 public class NetworkUtils {
+    /**
+     * NetworkInterface displayName : wlan0
+     */
+    public static final String WLAN_LABEL = "wlan0";
+    public static final String SOFT_AP_LABEL = "softap0";
 
     public enum NetworkType {
         NETWORK_ETHERNET,
@@ -341,6 +350,87 @@ public class NetworkUtils {
             }
         }
         return netType;
+    }
+
+
+    /**
+     * 获取设备WiFi网络和热点的网络信息。
+     */
+
+    public static Map<String, NetworkDhcpInfo> getNetworkDhcpInfos() {
+        Map<String, NetworkDhcpInfo> ipMap = new HashMap<>(2);
+        try {
+            Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
+            LinkedList<InetAddress> adds = new LinkedList<>();
+            while (nis.hasMoreElements()) {
+                NetworkInterface ni = nis.nextElement();
+                // To prevent phone of xiaomi return "10.0.2.15"
+                if (!ni.isUp() || ni.isLoopback()) continue;
+                Enumeration<InetAddress> addresses = ni.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    InetAddress inetAddress = addresses.nextElement();
+                    if (WLAN_LABEL.equals(ni.getDisplayName()) || ni.getDisplayName().equals(SOFT_AP_LABEL)) {
+                        if (inetAddress instanceof Inet4Address && !inetAddress.isLoopbackAddress()) {
+                            NetworkDhcpInfo info = new NetworkDhcpInfo();
+                            info.ipAddress = inetAddress.getHostAddress();
+
+                            for (InterfaceAddress interfaceAddress : ni.getInterfaceAddresses()) {
+                                if (interfaceAddress.getAddress() instanceof Inet4Address) {
+                                    info.subnetMask = getIPv4LocalNetMask(interfaceAddress.getNetworkPrefixLength());
+                                }
+                            }
+                            System.out.println(" getWlanIpAddress  displayName " + ni.getDisplayName() + ";  DhcpInfo = " + info.toString());
+                            ipMap.put(ni.getDisplayName(), info);
+                        }
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+        return ipMap;
+    }
+
+    public static class NetworkDhcpInfo {
+        public String ipAddress;
+        public String subnetMask;
+
+        @Override
+        public String toString() {
+            return "NetworkDhcpInfo{" +
+                    "ipAddress='" + ipAddress + '\'' +
+                    ", subnetMask='" + subnetMask + '\'' +
+                    '}';
+        }
+    }
+
+    /**
+     * Get network mask for the IP address and network prefix specified...
+     * The network mask will be returned has an IP, thus you can
+     * print it out with .getHostAddress()...
+     */
+    public static String getIPv4LocalNetMask(int netPrefix) {
+
+        try {
+            // Since this is for IPv4, it's 32 bits, so set the sign value of
+            // the int to "negative"...
+            int shiftby = (1 << 31);
+            // For the number of bits of the prefix -1 (we already set the sign bit)
+            for (int i = netPrefix - 1; i > 0; i--) {
+                // Shift the sign right... Java makes the sign bit sticky on a shift...
+                // So no need to "set it back up"...
+                shiftby = (shiftby >> 1);
+            }
+            // Transform the resulting value in xxx.xxx.xxx.xxx format, like if
+            /// it was a standard address...
+            String maskString = Integer.toString((shiftby >> 24) & 255) + "." + Integer.toString((shiftby >> 16) & 255) + "." + Integer.toString((shiftby >> 8) & 255) + "." + Integer.toString(shiftby & 255);
+            // Return the address thus created...
+            return maskString;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Something went wrong here...
+        return null;
     }
 
     @RequiresPermission(ACCESS_NETWORK_STATE)
