@@ -1,1 +1,1 @@
-include ':app', ':utils', ':ndk'
+include ':app', ':utils', ':ndk', ':samples'
