@@ -1,4 +1,4 @@
-package io.jiantao.ndk;
+package io.jiantao.example.wanandroid;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("io.jiantao.ndk.test", appContext.getPackageName());
+        assertEquals("io.jiantao.example.wanandroid.test", appContext.getPackageName());
     }
 }

@@ -3,7 +3,7 @@
 
 - Utils 常用工具类
 
-- Ndk 可复用代码
+- wanAndroid 基于android jetPack实现，数据来源http://www.wanandroid.com/
 
 - Samples 示例代码
 

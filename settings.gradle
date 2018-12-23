@@ -1,1 +1,1 @@
-include ':app', ':utils', ':ndk', ':samples'
+include ':app', ':utils', ':samples', ':wanandroid'

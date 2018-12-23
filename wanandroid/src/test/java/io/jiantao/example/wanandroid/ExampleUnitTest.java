@@ -1,4 +1,4 @@
-package io.jiantao.ndk;
+package io.jiantao.example.wanandroid;
 
 import org.junit.Test;
 
