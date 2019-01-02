@@ -24,11 +24,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation(rootProject.ext.dependencies["support-v4"])
-    implementation(rootProject.ext.dependencies["appcompat-v7"]) {
-        exclude module: 'support-annotations'
-        exclude module: 'support-v4'
-    }
+    implementation (rootProject.ext.dependencies["appcompat-x"])
+    implementation (rootProject.ext.dependencies["supportv4-x"])
+//    implementation(rootProject.ext.dependencies["support-v4"])
+//    implementation(rootProject.ext.dependencies["appcompat-v7"]) {
+//        exclude module: 'support-annotations'
+//        exclude module: 'support-v4'
+//    }
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

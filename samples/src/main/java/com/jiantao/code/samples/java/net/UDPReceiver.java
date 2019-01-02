@@ -1,12 +1,13 @@
 package com.jiantao.code.samples.java.net;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.channels.DatagramChannel;
+
+import androidx.annotation.RequiresApi;
 
 public class UDPReceiver {
 

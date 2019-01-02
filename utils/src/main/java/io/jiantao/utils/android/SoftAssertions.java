@@ -7,7 +7,8 @@
 
 package io.jiantao.utils.android;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 /**
  * 断言，不满足条件就抛出异常。
