@@ -27,6 +27,8 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.0.0'
     implementation (rootProject.ext.dependencies["appcompat-x"])
     implementation (rootProject.ext.dependencies["supportv4-x"])
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+    implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
 //    implementation (rootProject.ext.dependencies["fragment-x"])
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

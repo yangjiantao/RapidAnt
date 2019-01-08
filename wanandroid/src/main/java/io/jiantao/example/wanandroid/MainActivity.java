@@ -16,5 +16,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SelectedFragment fragment = new SelectedFragment();
+        getSupportFragmentManager().beginTransaction().add(android.R.id.content, fragment, SelectedFragment.TAG).commit();
     }
 }

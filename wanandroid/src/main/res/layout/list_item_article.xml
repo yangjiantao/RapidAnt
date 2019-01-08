@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_search_pager_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_search_pager_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                tools:text="Carson_Ho"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/item_search_pager_chapterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="四大组件/handler"
+                android:gravity="end"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/item_search_pager_author" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/item_search_pager_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Android Handler: 手把手带你深入分析Handler机制源码"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:id="@+id/item_search_tag_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true">
+
+                <TextView
+                    android:id="@+id/item_search_pager_tag_red_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="新"
+                    android:background="@android:color/holo_blue_bright"
+                    android:gravity="center"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/item_search_pager_tag_green_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="项目"
+                    android:gravity="center"
+                    android:layout_marginStart="12dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/item_search_pager_like_iv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="@null"
+                />
+
+            <TextView
+                android:id="@+id/item_search_pager_niceDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="14小时之前"
+                android:gravity="center_vertical"
+                android:layout_toEndOf="@id/item_search_pager_like_iv"
+                android:layout_toStartOf="@id/item_search_tag_group" />
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
