@@ -1,4 +1,4 @@
-package io.jiantao.example.wanandroid.repo.db;
+package io.jiantao.example.wanandroid.db;
 
 /**
  * description 数据库管理类

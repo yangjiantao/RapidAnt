@@ -18,15 +18,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.fragment:fragment:1.0.0'
-    implementation (rootProject.ext.dependencies["appcompat-x"])
-    implementation (rootProject.ext.dependencies["supportv4-x"])
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
+    implementation(rootProject.ext.dependencies["appcompat-x"])
+    implementation(rootProject.ext.dependencies["supportv4-x"])
+    implementation(rootProject.ext.dependencies["retrofit"])
+    implementation(rootProject.ext.dependencies["retrofit-converter-gson"])
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
     implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
 //    implementation (rootProject.ext.dependencies["fragment-x"])

@@ -1,15 +1,23 @@
 package io.jiantao.example.wanandroid;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import io.jiantao.example.wanandroid.adapters.ArticleAdapter;
+import io.jiantao.example.wanandroid.db.entity.WanAndroidArticle;
+import io.jiantao.example.wanandroid.repo.Resource;
+import io.jiantao.example.wanandroid.viewmodels.ArticleListViewModel;
 
 /**
  * 精选文章列表
@@ -39,5 +47,22 @@ public class SelectedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ArticleAdapter adapter = new ArticleAdapter();
         mSelectedList.setAdapter(adapter);
+
+        ArticleListViewModel viewModel = ViewModelProviders.of(this).get(ArticleListViewModel.class);
+        viewModel.getArticles().observe(this, new Observer<Resource<List<WanAndroidArticle>>>() {
+            @Override
+            public void onChanged(Resource<List<WanAndroidArticle>> listResource) {
+                Log.d(TAG, "listResource "+listResource);
+                if (listResource != null) {
+                    Log.d(TAG, "onChanged resource.status : "+listResource.status);
+                    if (listResource.status.equals(Resource.Status.SUCCESS)) {
+                        List<WanAndroidArticle> list = listResource.data;
+                        for (WanAndroidArticle item : list) {
+                            Log.d(TAG, item.toString());
+                        }
+                    }
+                }
+            }
+        });
     }
 }
