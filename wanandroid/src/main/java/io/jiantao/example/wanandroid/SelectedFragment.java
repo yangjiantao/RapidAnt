@@ -52,15 +52,10 @@ public class SelectedFragment extends Fragment {
         viewModel.getArticles().observe(this, new Observer<Resource<List<WanAndroidArticle>>>() {
             @Override
             public void onChanged(Resource<List<WanAndroidArticle>> listResource) {
-                Log.d(TAG, "listResource "+listResource);
-                if (listResource != null) {
-                    Log.d(TAG, "onChanged resource.status : "+listResource.status);
-                    if (listResource.status.equals(Resource.Status.SUCCESS)) {
-                        List<WanAndroidArticle> list = listResource.data;
-                        for (WanAndroidArticle item : list) {
-                            Log.d(TAG, item.toString());
-                        }
-                    }
+                Log.d(TAG, "listResource " + listResource);
+                if (listResource != null && listResource.data != null) {
+                    Log.d(TAG, "onChanged resource.status : " + listResource.status);
+                    adapter.refreshArticles(listResource.data);
                 }
             }
         });

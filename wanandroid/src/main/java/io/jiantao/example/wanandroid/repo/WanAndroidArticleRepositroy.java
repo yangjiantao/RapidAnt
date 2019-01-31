@@ -12,6 +12,7 @@ import io.jiantao.example.wanandroid.api.ApiResponse;
 import io.jiantao.example.wanandroid.api.ApiServiceManager;
 import io.jiantao.example.wanandroid.api.BaseDataList;
 import io.jiantao.example.wanandroid.api.WanAndroidService;
+import io.jiantao.example.wanandroid.db.dao.ArticleDao;
 import io.jiantao.example.wanandroid.db.entity.WanAndroidArticle;
 import io.jiantao.example.wanandroid.util.AppExecutors;
 
@@ -26,12 +27,14 @@ public class WanAndroidArticleRepositroy {
     private static final String TAG = WanAndroidArticleRepositroy.class.getSimpleName();
 
     private AppExecutors mExecutors;
+    private ArticleDao mDao;
 
     private WanAndroidService mService;
 
-    public WanAndroidArticleRepositroy() {
+    public WanAndroidArticleRepositroy(AppExecutors executors, ArticleDao articleDao) {
         // should be single instance
-        mExecutors = new AppExecutors();
+        mExecutors = executors;
+        mDao = articleDao;
         mService = ApiServiceManager.getWanAndroidService();
     }
 
@@ -45,6 +48,7 @@ public class WanAndroidArticleRepositroy {
                 for (WanAndroidArticle item : list) {
                     Log.d(TAG, item.toString());
                 }
+                mDao.insertArticles(list);
             }
 
             @Override
@@ -55,7 +59,7 @@ public class WanAndroidArticleRepositroy {
             @NonNull
             @Override
             protected LiveData<List<WanAndroidArticle>> loadFromDb() {
-                return new MutableLiveData<>();
+                return mDao.getArticles();
             }
 
             @NonNull

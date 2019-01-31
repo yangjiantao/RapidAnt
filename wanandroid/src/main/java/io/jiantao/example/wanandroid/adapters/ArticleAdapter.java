@@ -5,9 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import io.jiantao.example.wanandroid.R;
+import io.jiantao.example.wanandroid.model.IArticle;
 
 /**
  * 精选文件列表adapter
@@ -16,6 +20,12 @@ import io.jiantao.example.wanandroid.R;
  * @date 2019/1/7
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
+
+    private List<? extends IArticle> mArticles;
+
+    public ArticleAdapter() {
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,16 +35,28 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mTitle.setText("Test Title position "+position);
-
+        holder.mTitle.setText(mArticles.get(position).getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mArticles == null ? 0 : mArticles.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    /**
+     * refresh data
+     *
+     * @param articles
+     */
+    public void refreshArticles(List<? extends IArticle> articles) {
+        if (articles == null || articles.isEmpty()) {
+            return;
+        }
+        mArticles = articles;
+        notifyDataSetChanged();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView mTitle;
 
