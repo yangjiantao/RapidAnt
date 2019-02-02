@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+import io.jiantao.example.wanandroid.db.converter.ArticleTagsConverter;
 import io.jiantao.example.wanandroid.db.dao.ArticleDao;
 import io.jiantao.example.wanandroid.db.entity.WanAndroidArticle;
 
@@ -16,6 +18,7 @@ import io.jiantao.example.wanandroid.db.entity.WanAndroidArticle;
  * @date 2019/1/8
  */
 @Database(entities = {WanAndroidArticle.class}, version = 1)
+@TypeConverters({ArticleTagsConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_FILE_NAME = "rapid_ant.db";
     private static volatile AppDatabase sInstance;

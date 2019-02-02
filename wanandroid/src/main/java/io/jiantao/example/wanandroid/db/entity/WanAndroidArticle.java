@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import io.jiantao.example.wanandroid.model.IArticle;
@@ -27,11 +26,11 @@ public class WanAndroidArticle implements IArticle {
      * collect : false
      * courseId : 13
      * desc : APP信息是一个免费的工具应用. 它有以下功能特点:
-
-     查看已安装的app信息.
-     查看未安装的apk信息.
-     导出已安装的app应用的apk文件.
-     复制apk的签名信息到剪切板.
+     * <p>
+     * 查看已安装的app信息.
+     * 查看未安装的apk信息.
+     * 导出已安装的app应用的apk文件.
+     * 复制apk的签名信息到剪切板.
      * envelopePic : http://wanandroid.com/blogimgs/f16b7060-38e2-4ebd-87d9-d61b59a000e2.png
      * fresh : false
      * id : 7892
@@ -78,8 +77,7 @@ public class WanAndroidArticle implements IArticle {
     public int userId;
     public int visible;
     public int zan;
-//    @Embedded
-//    public List<TagsBean> tags;
+    public List<TagsBean> tags;
 
     public WanAndroidArticle() {
     }
@@ -87,6 +85,11 @@ public class WanAndroidArticle implements IArticle {
     @Override
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public String getAuthor() {
+        return author;
     }
 
     public static class TagsBean {
@@ -110,6 +113,7 @@ public class WanAndroidArticle implements IArticle {
                 "author='" + author + '\'' +
                 ", id=" + id +
                 ", title='" + title + '\'' +
+                ", tags='" + tags + '\'' +
                 '}';
     }
 }

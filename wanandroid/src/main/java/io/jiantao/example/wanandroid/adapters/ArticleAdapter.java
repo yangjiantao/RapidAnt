@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -35,7 +34,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mTitle.setText(mArticles.get(position).getTitle());
+        IArticle iArticle = mArticles.get(position);
+        holder.mTitle.setText(iArticle.getTitle());
+        holder.mAuthor.setText(iArticle.getAuthor());
     }
 
     @Override
@@ -59,10 +60,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView mTitle;
+        TextView mAuthor;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.item_search_pager_title);
+            mAuthor = itemView.findViewById(R.id.item_search_pager_author);
         }
     }
 }

@@ -12,4 +12,9 @@ public interface IArticle {
      * @return  title
      */
     String getTitle();
+
+    /**
+     * @return author
+     */
+    String getAuthor();
 }
