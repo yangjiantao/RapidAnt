@@ -11,3 +11,6 @@
 - App架构各层code独立测试
 - 使用Data Binding Library
 - 使用WorkManager处理后台作业
+- 首页文章列表分页加载
+- 聚合各平台优质文章
+- 常用高效率工具开发（集成）
