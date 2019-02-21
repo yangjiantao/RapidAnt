@@ -92,6 +92,11 @@ public class WanAndroidArticle implements IArticle {
         return author;
     }
 
+    @Override
+    public String getLink() {
+        return link;
+    }
+
     public static class TagsBean {
         /**
          * name : 项目

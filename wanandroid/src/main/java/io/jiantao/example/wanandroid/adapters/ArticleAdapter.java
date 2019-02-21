@@ -1,5 +1,6 @@
 package io.jiantao.example.wanandroid.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import io.jiantao.example.wanandroid.ArticleDetailActivity;
 import io.jiantao.example.wanandroid.R;
 import io.jiantao.example.wanandroid.model.IArticle;
 
@@ -37,6 +39,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         IArticle iArticle = mArticles.get(position);
         holder.mTitle.setText(iArticle.getTitle());
         holder.mAuthor.setText(iArticle.getAuthor());
+        holder.articleUrl = iArticle.getLink();
     }
 
     @Override
@@ -59,6 +62,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        String articleUrl;
+
         TextView mTitle;
         TextView mAuthor;
 
@@ -66,6 +71,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             super(itemView);
             mTitle = itemView.findViewById(R.id.item_search_pager_title);
             mAuthor = itemView.findViewById(R.id.item_search_pager_author);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ArticleDetailActivity.class);
+                    intent.putExtra(ArticleDetailActivity.KEY_ARTICLE_URL, articleUrl);
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }

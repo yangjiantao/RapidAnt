@@ -27,6 +27,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation project(':utils')
+
     // architecture components or libraries
     implementation 'androidx.fragment:fragment:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'

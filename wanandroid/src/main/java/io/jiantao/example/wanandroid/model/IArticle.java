@@ -17,4 +17,9 @@ public interface IArticle {
      * @return author
      */
     String getAuthor();
+
+    /**
+     * @return article's url
+     */
+    String getLink();
 }

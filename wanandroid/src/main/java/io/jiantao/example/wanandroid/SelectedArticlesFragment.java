@@ -25,9 +25,9 @@ import io.jiantao.example.wanandroid.viewmodels.ArticleListViewModel;
  * @author Created by jiantaoyang
  * @date 2018/12/30
  */
-public class SelectedFragment extends Fragment {
+public class SelectedArticlesFragment extends Fragment {
 
-    public static final String TAG = "SelectedFragment";
+    public static final String TAG = SelectedArticlesFragment.class.getSimpleName();
     private RecyclerView mSelectedList;
 
     @Override

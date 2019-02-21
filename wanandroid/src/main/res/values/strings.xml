@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WanAndroid</string>
+    <string name="error_tips">load failed, please try agian later</string>
+    <string name="reload">reload</string>
 </resources>
