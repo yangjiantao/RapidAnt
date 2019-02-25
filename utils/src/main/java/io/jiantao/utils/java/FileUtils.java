@@ -24,6 +24,7 @@ import java.util.Locale;
 
 /**
  * thanks Blankj
+ *
  * @author jiantao
  * @time 2018/9/1
  */
@@ -1160,6 +1161,7 @@ public class FileUtils {
 
     /**
      * suggest read small size file
+     *
      * @param filePath
      * @return
      * @throws IOException
@@ -1173,11 +1175,15 @@ public class FileUtils {
             reader = new BufferedReader(new InputStreamReader(fin));
             StringBuilder sb = new StringBuilder();
             String line = null;
+            String suffix = "\n";
             while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n");
+                sb.append(line).append(suffix);
             }
-
-            return sb.toString();
+            String result = sb.toString();
+            if (result.endsWith(suffix)) {
+                result = result.substring(0, result.length() - 1);
+            }
+            return result;
         } finally {
             if (reader != null) {
                 reader.close();
@@ -1190,6 +1196,7 @@ public class FileUtils {
 
     /**
      * write string to file.  cover exist data
+     *
      * @param content
      * @param filePath
      * @throws IOException
