@@ -1,4 +1,4 @@
-package io.jiantao.rapidant;
+package io.jiantao.rapidant.test;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,17 +10,25 @@ import android.widget.Toast;
 import java.io.File;
 
 import androidx.appcompat.app.AppCompatActivity;
-import io.jiantao.rapidant.test.TestActivity;
+import io.jiantao.rapidant.R;
 import io.jiantao.utils.java.FileUtils;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+/**
+ * verify same skills
+ * 1. horizontalScrollView 会拦截父布局的点击事件，因为自身onTouchEvent始终返回true，并且没有执行自身的onClick事件
+ */
+public class TestActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = TestActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_test);
         Log.d(TAG, "onCreate");
+
+        findViewById(R.id.fl_content).setOnClickListener(this);
+        findViewById(R.id.hsv_scrollview).setOnClickListener(this);
+        findViewById(R.id.iv_imageview).setOnClickListener(this);
     }
 
     @Override
@@ -53,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "拷贝数据库 "+(state?"成功":"失败"), Toast.LENGTH_SHORT).show();
     }
 
-    public void testActivity(View view){
-        startActivity(new Intent(this, TestActivity.class));
+    @Override
+    public void onClick(View v) {
+        Log.d(TAG, "onClick v "+v.getId());
     }
 }
