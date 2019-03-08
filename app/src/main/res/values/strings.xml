@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RapidAnt</string>
+    <string name="order_item_intro">共%d件商品，实付款：&lt;b>￥%s&lt;/b> </string>
 </resources>

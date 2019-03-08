@@ -3,8 +3,10 @@ package io.jiantao.rapidant.test;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -20,6 +22,7 @@ import io.jiantao.utils.java.FileUtils;
 public class TestActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = TestActivity.class.getSimpleName();
 
+    TextView testText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,10 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.fl_content).setOnClickListener(this);
         findViewById(R.id.hsv_scrollview).setOnClickListener(this);
         findViewById(R.id.iv_imageview).setOnClickListener(this);
+
+        testText = findViewById(R.id.tv_test_text);
+
+        testText.setText(Html.fromHtml(getString(R.string.order_item_intro, 5, "500")));
     }
 
     @Override
