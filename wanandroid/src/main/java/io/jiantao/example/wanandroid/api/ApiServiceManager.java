@@ -1,5 +1,8 @@
 package io.jiantao.example.wanandroid.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.jiantao.example.wanandroid.util.LiveDataCallAdapterFactory;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,6 +22,11 @@ public class ApiServiceManager {
     private Retrofit mRetrofit;
 
     /**
+     * services map for cache
+     */
+    private Map<Class<?>, Object> mServices;
+
+    /**
      * constructor
      */
     private ApiServiceManager() {
@@ -27,6 +35,8 @@ public class ApiServiceManager {
                 .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+        mServices = new HashMap<>();
     }
 
     private static ApiServiceManager get() {
@@ -41,9 +51,16 @@ public class ApiServiceManager {
     }
 
     /**
-     * @return wanandroid api service
+     * Returns an existing Service or creates a new one in the app's scope.
+     * @param <T> service type
+     * @return service instance
      */
-    public static WanAndroidService getWanAndroidService(){
-        return get().mRetrofit.create(WanAndroidService.class);
+    public static <T> T getService(Class<T> service) {
+        Object obj = get().mServices.get(service);
+        if (obj == null) {
+            obj = get().mRetrofit.create(service);
+            get().mServices.put(service, obj);
+        }
+        return (T) obj;
     }
 }

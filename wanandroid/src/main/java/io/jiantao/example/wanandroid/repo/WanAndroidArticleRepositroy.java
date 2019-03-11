@@ -35,7 +35,7 @@ public class WanAndroidArticleRepositroy {
         // should be single instance
         mExecutors = executors;
         mDao = articleDao;
-        mService = ApiServiceManager.getWanAndroidService();
+        mService = ApiServiceManager.getService(WanAndroidService.class);
     }
 
     public LiveData<Resource<List<WanAndroidArticle>>> getSelectedArticles() {

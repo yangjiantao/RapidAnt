@@ -23,9 +23,9 @@ public interface ArticleDao {
 
     /**
      * get articles from db
-     * @return
+     * @return 最新的20条数据
      */
-    @Query("SELECT * FROM articles")
+    @Query("SELECT * FROM articles order by publishTime desc limit 20")
     LiveData<List<WanAndroidArticle>> getArticles();
 
 }

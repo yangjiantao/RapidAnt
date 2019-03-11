@@ -13,6 +13,8 @@ import io.jiantao.example.wanandroid.util.AppExecutors;
 
 
 /**
+ * 执行流程：loadFromDb -> 是否fetch网络数据->缓存到db->loadFromDb
+ * tips: 如果不需要持久化数据，Repository中直接fetch网络数据即可。
  * @param <ResultType>  Type for the Resource data.
  * @param <RequestType> Type for the API response.
  * @author yangjiantao
