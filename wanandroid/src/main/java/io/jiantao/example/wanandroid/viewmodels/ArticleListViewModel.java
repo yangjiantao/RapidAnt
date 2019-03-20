@@ -7,7 +7,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import io.jiantao.example.wanandroid.WanAndroidApp;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import io.jiantao.example.wanandroid.db.entity.WanAndroidArticle;
 import io.jiantao.example.wanandroid.repo.Resource;
 import io.jiantao.example.wanandroid.repo.WanAndroidArticleRepositroy;
@@ -21,16 +22,36 @@ import io.jiantao.example.wanandroid.repo.WanAndroidArticleRepositroy;
 public class ArticleListViewModel extends AndroidViewModel {
 
     private LiveData<Resource<List<WanAndroidArticle>>> articles;
-    private WanAndroidArticleRepositroy mRepo;
+    private final WanAndroidArticleRepositroy mRepo;
 
-    public ArticleListViewModel(@NonNull Application application) {
+    ArticleListViewModel(@NonNull Application application, @NonNull WanAndroidArticleRepositroy repo) {
         super(application);
-        WanAndroidApp androidApp = (WanAndroidApp) application;
-        mRepo = new WanAndroidArticleRepositroy(androidApp.getAppExecutors(), androidApp.getDatabase().articleDao());
+        mRepo = repo;
         articles = mRepo.getSelectedArticles();
     }
 
     public LiveData<Resource<List<WanAndroidArticle>>> getArticles() {
         return articles;
+    }
+
+    public static class Factory extends ViewModelProvider.NewInstanceFactory{
+
+        private WanAndroidArticleRepositroy mRepo;
+        private Application mApplication;
+        /**
+         * Creates a {@code AndroidViewModelFactory}
+         *
+         * @param application an application to pass in {@link AndroidViewModel}
+         */
+        public Factory(@NonNull Application application, WanAndroidArticleRepositroy repositroy) {
+            mApplication = application;
+            mRepo = repositroy;
+        }
+
+        @NonNull
+        @Override
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new ArticleListViewModel(mApplication, mRepo);
+        }
     }
 }

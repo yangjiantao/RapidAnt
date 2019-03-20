@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.jiantao.example.wanandroid.adapters.ArticleAdapter;
 import io.jiantao.example.wanandroid.db.entity.WanAndroidArticle;
 import io.jiantao.example.wanandroid.repo.Resource;
+import io.jiantao.example.wanandroid.repo.WanAndroidArticleRepositroy;
 import io.jiantao.example.wanandroid.viewmodels.ArticleListViewModel;
 
 /**
@@ -48,7 +49,10 @@ public class SelectedArticlesFragment extends Fragment {
         ArticleAdapter adapter = new ArticleAdapter();
         mSelectedList.setAdapter(adapter);
 
-        ArticleListViewModel viewModel = ViewModelProviders.of(this).get(ArticleListViewModel.class);
+        WanAndroidApp app = WanAndroidApp.get();
+        WanAndroidArticleRepositroy repository = new WanAndroidArticleRepositroy(app.getAppExecutors(), app.getDatabase().articleDao());
+        ArticleListViewModel.Factory factory = new ArticleListViewModel.Factory(app, repository);
+        ArticleListViewModel viewModel = ViewModelProviders.of(this, factory).get(ArticleListViewModel.class);
         viewModel.getArticles().observe(this, new Observer<Resource<List<WanAndroidArticle>>>() {
             @Override
             public void onChanged(Resource<List<WanAndroidArticle>> listResource) {

@@ -13,12 +13,20 @@ import io.jiantao.example.wanandroid.util.AppExecutors;
  */
 public class WanAndroidApp extends Application {
     private AppExecutors mAppExecutors;
+    private static WanAndroidApp mApp;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        mApp = this;
         mAppExecutors = new AppExecutors();
+    }
+
+    /**
+     * @return application instance
+     */
+    public static WanAndroidApp get(){
+        return mApp;
     }
 
     public AppDatabase getDatabase() {
