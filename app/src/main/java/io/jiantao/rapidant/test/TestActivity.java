@@ -3,6 +3,8 @@ package io.jiantao.rapidant.test;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +25,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = TestActivity.class.getSimpleName();
 
     TextView testText;
+    Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,50 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         testText = findViewById(R.id.tv_test_text);
 
         testText.setText(Html.fromHtml(getString(R.string.order_item_intro, 5, "500")));
+
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                try {
+                    Log.d(TAG, "handleMessage >>>>>> msg.what "+msg.what);
+                    Thread.sleep(2000);
+                    Log.d(TAG, "handleMessage <<<<<< msg.what "+msg.what);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        });
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.d(TAG, "test runnable >>>>>> msg.what ");
+                    Thread.sleep(2000);
+                    Log.d(TAG, "test runnable <<<<<< msg.what ");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Message msg = Message.obtain();
+
+        int count = 10;
+        for (int i = 0; i < count; i++) {
+            boolean result = false;
+            // 1. 发送相同what的空消息不会去重。
+//            handler.sendEmptyMessageDelayed(1, 50);
+            // 2. post同一个runnable 也不会去重。
+//            result = handler.postDelayed(runnable, 50);
+            // 3. 发送同一个Message会抛出异常。
+
+            msg.what = i;
+            result = handler.sendMessageDelayed(msg, 50);
+
+            Log.d(TAG, "test Handler post "+result);
+        }
     }
 
     @Override

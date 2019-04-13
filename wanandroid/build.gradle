@@ -45,7 +45,10 @@ dependencies {
     // Android Testing Support Library's runner and rules
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    testImplementation "androidx.arch.core:core-testing:2.0.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
     implementation 'androidx.room:room-testing:2.0.0'
+
     //mockito
     testImplementation "org.mockito:mockito-core:2.22.0"
     androidTestImplementation "org.mockito:mockito-android:2.22.0"
