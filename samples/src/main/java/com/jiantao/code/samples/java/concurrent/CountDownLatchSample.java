@@ -9,9 +9,13 @@ import java.util.concurrent.Executors;
  */
 public class CountDownLatchSample {
 
+    public static void main(String[] args) throws InterruptedException {
+        driver1();
+    }
+
     /**
-     * 多线程控制一个CountDownLatch对象，实现线程间协作
-     *
+     * 多线程控制一个CountDownLatch对象，实现线程间协作。
+     * await: 当前线程等待知道latch count down为0
      * @throws InterruptedException
      */
     public static void driver1() throws InterruptedException {
@@ -19,6 +23,7 @@ public class CountDownLatchSample {
         ExecutorService executorService = Executors.newCachedThreadPool();
         final int N = 10;
         CountDownLatch startSignal = new CountDownLatch(1);
+        // attention ： this params is N
         CountDownLatch doneSignal = new CountDownLatch(N);
         for (int i = 0; i < N; i++) {
             executorService.execute(new Worker(i, startSignal, doneSignal));
@@ -58,7 +63,7 @@ public class CountDownLatchSample {
 
         private void doWork() throws InterruptedException {
             System.out.println(" worker id = " + index + "; doWork >>>>>>> ");
-            Thread.sleep(2000);
+            Thread.sleep(index == 0 ? 10_000 : 1000);
             System.out.println(" worker id = " + index + "; doWork <<<<<<< ");
         }
     }
