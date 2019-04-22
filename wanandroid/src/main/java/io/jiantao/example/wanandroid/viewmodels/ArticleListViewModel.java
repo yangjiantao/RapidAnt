@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import io.jiantao.example.wanandroid.db.entity.WanAndroidArticle;
 import io.jiantao.example.wanandroid.repo.Resource;
-import io.jiantao.example.wanandroid.repo.WanAndroidArticleRepositroy;
+import io.jiantao.example.wanandroid.repo.WanAndroidArticleRepository;
 
 /**
  * 文章列表viewModel
@@ -22,9 +22,9 @@ import io.jiantao.example.wanandroid.repo.WanAndroidArticleRepositroy;
 public class ArticleListViewModel extends AndroidViewModel {
 
     private LiveData<Resource<List<WanAndroidArticle>>> articles;
-    private final WanAndroidArticleRepositroy mRepo;
+    private final WanAndroidArticleRepository mRepo;
 
-    ArticleListViewModel(@NonNull Application application, @NonNull WanAndroidArticleRepositroy repo) {
+    ArticleListViewModel(@NonNull Application application, @NonNull WanAndroidArticleRepository repo) {
         super(application);
         mRepo = repo;
         articles = mRepo.getSelectedArticles();
@@ -36,14 +36,14 @@ public class ArticleListViewModel extends AndroidViewModel {
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory{
 
-        private WanAndroidArticleRepositroy mRepo;
+        private WanAndroidArticleRepository mRepo;
         private Application mApplication;
         /**
          * Creates a {@code AndroidViewModelFactory}
          *
          * @param application an application to pass in {@link AndroidViewModel}
          */
-        public Factory(@NonNull Application application, WanAndroidArticleRepositroy repositroy) {
+        public Factory(@NonNull Application application, WanAndroidArticleRepository repositroy) {
             mApplication = application;
             mRepo = repositroy;
         }

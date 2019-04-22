@@ -2,6 +2,8 @@ package io.jiantao.example.wanandroid.api;
 
 import java.util.List;
 
+import androidx.annotation.Nullable;
+
 /**
  * description
  *
@@ -10,9 +12,10 @@ import java.util.List;
  */
 public class BaseDataList<T> {
 
+    @Nullable
     private DataObj<T> data;
 
-    public static class DataObj<T>{
+    public static class DataObj<T> {
         private List<T> datas;
 
         public List<T> getDatas() {
@@ -21,9 +24,10 @@ public class BaseDataList<T> {
     }
 
     /**
-     * @return datas from remote service
+     * @return dataList from remote service, or null
      */
+    @Nullable
     public List<T> getData() {
-        return data.getDatas();
+        return data == null ? null : data.getDatas();
     }
 }

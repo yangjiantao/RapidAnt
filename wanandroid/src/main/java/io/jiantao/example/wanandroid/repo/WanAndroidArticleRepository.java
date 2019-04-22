@@ -7,7 +7,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import io.jiantao.example.wanandroid.api.ApiResponse;
 import io.jiantao.example.wanandroid.api.ApiServiceManager;
 import io.jiantao.example.wanandroid.api.BaseDataList;
@@ -22,20 +21,20 @@ import io.jiantao.example.wanandroid.util.AppExecutors;
  * @author Created by jiantaoyang
  * @date 2019/1/8
  */
-public class WanAndroidArticleRepositroy {
+public class WanAndroidArticleRepository {
 
-    private static final String TAG = WanAndroidArticleRepositroy.class.getSimpleName();
+    private static final String TAG = WanAndroidArticleRepository.class.getSimpleName();
 
     private AppExecutors mExecutors;
     private ArticleDao mDao;
 
     private WanAndroidService mService;
 
-    public WanAndroidArticleRepositroy(AppExecutors executors, ArticleDao articleDao) {
+    public WanAndroidArticleRepository(AppExecutors executors, ArticleDao articleDao, WanAndroidService service) {
         // should be single instance
         mExecutors = executors;
         mDao = articleDao;
-        mService = ApiServiceManager.getService(WanAndroidService.class);
+        mService = service;
     }
 
     public LiveData<Resource<List<WanAndroidArticle>>> getSelectedArticles() {
@@ -43,8 +42,11 @@ public class WanAndroidArticleRepositroy {
 
             @Override
             protected void saveCallResult(@NonNull BaseDataList<WanAndroidArticle> dataList) {
-                Log.d(TAG, "saveCallResult .");
+//                Log.d(TAG, "saveCallResult .");
                 List<WanAndroidArticle> list = dataList.getData();
+                if (list == null) {
+                    return;
+                }
                 for (WanAndroidArticle item : list) {
                     Log.d(TAG, item.toString());
                 }
