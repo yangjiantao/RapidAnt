@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion '28.0.3'
+    compileSdkVersion rootProject.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android["minSdkVersion"]
-        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode rootProject.ext.android["versionCode"]
-        versionName rootProject.ext.android["versionName"]
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -60,31 +60,30 @@ dependencies {
     implementation project(':utils')
 
     // architecture components or libraries
-    implementation 'androidx.fragment:fragment:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
-    annotationProcessor 'androidx.room:room-compiler:2.0.0'
-    implementation 'androidx.room:room-runtime:2.0.0'
-    implementation(rootProject.ext.dependencies["appcompat-x"])
-    implementation(rootProject.ext.dependencies["supportv4-x"])
-    implementation(rootProject.ext.dependencies["retrofit"])
-    implementation(rootProject.ext.dependencies["retrofit-converter-gson"])
+    implementation "androidx.fragment:fragment:$rootProject.androidxFragmentVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.androidxLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime:$rootProject.androidxLifecycleVersion"
+    annotationProcessor "androidx.room:room-compiler:$rootProject.androidxRoomVersion"
+    implementation "androidx.room:room-runtime:$rootProject.androidxRoomVersion"
+    implementation "androidx.legacy:legacy-support-v4:$rootProject.androidxSupportv4Version"
+    implementation "androidx.appcompat:appcompat:$rootProject.androidxAppcompatVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
     implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
 
     // Android Testing Support Library's runner and rules
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    testImplementation "androidx.arch.core:core-testing:2.0.0"
-    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
-    implementation 'androidx.room:room-testing:2.0.0'
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.supportTestRunnerVersion"
+    testImplementation "androidx.arch.core:core-testing:$rootProject.androidxArchCoreTestingVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.androidxArchCoreTestingVersion"
+    implementation "androidx.room:room-testing:$rootProject.androidxRoomTestingVersion"
 
     //mockito
-    testImplementation "org.mockito:mockito-core:2.22.0"
-    androidTestImplementation "org.mockito:mockito-android:2.22.0"
+    testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$rootProject.mockitoVersion"
 
-    testImplementation "com.google.truth:truth:0.43"
-
+    testImplementation "com.google.truth:truth:$rootProject.googleTruthVersion"
     // Espresso UI Testing
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
 }
