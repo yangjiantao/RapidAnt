@@ -31,6 +31,10 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$rootProject.androidxSupportv4Version"
     implementation "androidx.appcompat:appcompat:$rootProject.androidxAppcompatVersion"
 
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.androidxLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime:$rootProject.androidxLifecycleVersion"
+
     testImplementation "junit:junit:$rootProject.junitVersion"
 
     androidTestImplementation "com.android.support.test:runner:$rootProject.supportTestRunnerVersion"

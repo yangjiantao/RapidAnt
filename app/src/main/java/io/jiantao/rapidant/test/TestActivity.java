@@ -1,31 +1,39 @@
 package io.jiantao.rapidant.test;
 
-import android.content.Intent;
+import android.app.Dialog;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import io.jiantao.rapidant.R;
-import io.jiantao.utils.java.FileUtils;
+import io.jiantao.utils.android.LifecycleHandler;
+import io.jiantao.utils.android.UiThreadUtil;
 
 /**
  * verify same skills
  * 1. horizontalScrollView 会拦截父布局的点击事件，因为自身onTouchEvent始终返回true，并且没有执行自身的onClick事件
+ * 2. 验证handler消息去重。
+ * 2.1 发送相同what的空消息不会去重。
+ * 2.2 post同一个runnable 也不会去重。
+ * 2.3 发送同一个Message会抛异常。
  */
 public class TestActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = TestActivity.class.getSimpleName();
 
     TextView testText;
     Handler handler;
+
+    Dialog mDialog;
+
+    int msgWhat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,49 +48,39 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
         testText.setText(Html.fromHtml(getString(R.string.order_item_intro, 5, "500")));
 
-        handler = new Handler(new Handler.Callback() {
+
+        handler = new LifecycleHandler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
-                try {
-                    Log.d(TAG, "handleMessage >>>>>> msg.what "+msg.what);
-                    Thread.sleep(2000);
-                    Log.d(TAG, "handleMessage <<<<<< msg.what "+msg.what);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Log.d(TAG, "handleMessage >>>>>> msg.what " + msg.what);
+                String message = "msg.what = " + msg.what;
+                testText.setText(message);
+                showTestDialog(message);
+                Log.d(TAG, "handleMessage <<<<<< msg.what " + msg.what);
+                msgWhat++;
+                handler.sendEmptyMessageDelayed(msgWhat, 300);
                 return false;
             }
         });
+        ((LifecycleHandler) handler).bindLifecycleOwner(this);
 
-        Runnable runnable = new Runnable() {
+        handler.sendEmptyMessageDelayed(msgWhat, 300);
+
+        UiThreadUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Log.d(TAG, "test runnable >>>>>> msg.what ");
-                    Thread.sleep(2000);
-                    Log.d(TAG, "test runnable <<<<<< msg.what ");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                finish();
             }
-        };
+        }, 5000);
 
-        Message msg = Message.obtain();
+    }
 
-        int count = 10;
-        for (int i = 0; i < count; i++) {
-            boolean result = false;
-            // 1. 发送相同what的空消息不会去重。
-//            handler.sendEmptyMessageDelayed(1, 50);
-            // 2. post同一个runnable 也不会去重。
-//            result = handler.postDelayed(runnable, 50);
-            // 3. 发送同一个Message会抛出异常。
-
-            msg.what = i;
-            result = handler.sendMessageDelayed(msg, 50);
-
-            Log.d(TAG, "test Handler post "+result);
+    private void showTestDialog(String message) {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
         }
+        mDialog = new AlertDialog.Builder(this).setMessage(message).setPositiveButton("ok", null).create();
+        mDialog.show();
     }
 
     @Override
@@ -99,24 +97,15 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
         super.onDestroy();
         Log.d(TAG, "onDestroy");
     }
 
-    public void wanAndroid(View view){
-        startActivity(new Intent(this, io.jiantao.example.wanandroid.MainActivity.class));
-    }
-
-    public void wanAndroiddb(View view){
-        final String dbName = "rapid_ant.db";
-        File dbFile = getDatabasePath(dbName).getParentFile();
-        File destFile = new File(Environment.getExternalStorageDirectory(), "rapidAntDbDir");
-        boolean state = FileUtils.copyDir(dbFile, destFile);
-        Toast.makeText(this, "拷贝数据库 "+(state?"成功":"失败"), Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onClick(View v) {
-        Log.d(TAG, "onClick v "+v.getId());
+        Log.d(TAG, "onClick v " + v.getId());
     }
 }
