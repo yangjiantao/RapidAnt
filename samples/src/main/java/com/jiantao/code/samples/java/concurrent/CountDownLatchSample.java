@@ -15,7 +15,7 @@ public class CountDownLatchSample {
 
     /**
      * 多线程控制一个CountDownLatch对象，实现线程间协作。
-     * await: 当前线程等待知道latch count down为0
+     * await: 当前线程等待直到latch count down为0
      * @throws InterruptedException
      */
     public static void driver1() throws InterruptedException {

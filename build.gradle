@@ -39,6 +39,7 @@ buildscript {
         mockitoVersion = '2.25.0'
         googleTruthVersion = '0.43'
         espressoVersion = '3.0.2'
+        mockwebserverVersion = '3.8.1'
 
         // AndroidX libs
         androidxFragmentVersion = '1.0.0'
