@@ -21,32 +21,34 @@ public class LifecycleHandler extends Handler implements LifecycleObserver {
     private @NonNull
     LifecycleOwner mOwner;
 
-    /**
-     * @param mOwner a lifecycleOwner for handler that can remove all pending messages when ON_DESTROY Event occur
-     */
-    public LifecycleHandler(@NonNull LifecycleOwner mOwner) {
-        this.mOwner = mOwner;
+    public LifecycleHandler(@NonNull LifecycleOwner owner) {
+        bindLifecycleOwner(owner);
     }
 
-    /**
-     * @param mOwner   a lifecycleOwner for handler that can remove all pending messages when ON_DESTROY Event occur
-     * @param callback callback
-     */
-    public LifecycleHandler(@NonNull LifecycleOwner mOwner, Callback callback) {
+    public LifecycleHandler(@NonNull LifecycleOwner owner, Callback callback) {
         super(callback);
-        this.mOwner = mOwner;
+        bindLifecycleOwner(owner);
     }
 
-    public LifecycleHandler(@NonNull LifecycleOwner mOwner, Looper looper) {
+    public LifecycleHandler(@NonNull LifecycleOwner owner, Looper looper) {
         super(looper);
-        this.mOwner = mOwner;
+        bindLifecycleOwner(owner);
     }
 
-    public LifecycleHandler(@NonNull LifecycleOwner mOwner, Looper looper, Callback callback) {
+    public LifecycleHandler(@NonNull LifecycleOwner owner, Looper looper, Callback callback) {
         super(looper, callback);
-        this.mOwner = mOwner;
+        bindLifecycleOwner(owner);
     }
 
+    /**
+     * bind lifecycleOwner for handler that can remove all pending messages when ON_DESTROY Event occur
+     */
+    private void bindLifecycleOwner(LifecycleOwner owner) {
+        if (owner != null) {
+            mOwner = owner;
+            owner.getLifecycle().addObserver(this);
+        }
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     private void onDestroy() {
