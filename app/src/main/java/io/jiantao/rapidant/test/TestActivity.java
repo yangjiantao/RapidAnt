@@ -49,7 +49,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         testText.setText(Html.fromHtml(getString(R.string.order_item_intro, 5, "500")));
 
 
-        handler = new LifecycleHandler(new Handler.Callback() {
+        handler = new LifecycleHandler(this, new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
                 Log.d(TAG, "handleMessage >>>>>> msg.what " + msg.what);
@@ -62,7 +62,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
-        ((LifecycleHandler) handler).bindLifecycleOwner(this);
 
         handler.sendEmptyMessageDelayed(msgWhat, 300);
 
