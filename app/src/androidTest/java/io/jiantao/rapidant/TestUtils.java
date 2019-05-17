@@ -1,4 +1,4 @@
-package io.jiantao.example.wanandroid.util;
+package io.jiantao.rapidant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +22,16 @@ public class TestUtils {
     public static List<WanAndroidArticle> createArticles(int count) {
         List<WanAndroidArticle> articles = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
-            articles.add(createArticle());
+            articles.add(createArticle(i));
         }
         return articles;
     }
 
-    private static WanAndroidArticle createArticle() {
+    private static WanAndroidArticle createArticle(int id) {
 
         WanAndroidArticle article = new WanAndroidArticle();
-        article.title = "mock data for article.";
+        article.title = "mock data for article."+id;
+        article.id = id;
         return article;
     }
 }

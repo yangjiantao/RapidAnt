@@ -36,6 +36,11 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
 
 
+    testImplementation "androidx.arch.core:core-testing:$rootProject.androidxArchCoreTestingVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.androidxArchCoreTestingVersion"
+    implementation "androidx.room:room-testing:$rootProject.androidxRoomTestingVersion"
+
+
     implementation project(':utils')
     implementation project(':wanandroid')
     implementation project(':samples')
