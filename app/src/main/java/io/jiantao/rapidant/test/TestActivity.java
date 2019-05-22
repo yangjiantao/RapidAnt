@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import io.jiantao.rapidant.R;
 import io.jiantao.utils.android.LifecycleHandler;
-import io.jiantao.utils.android.UiThreadUtil;
+import io.jiantao.utils.android.UiThreadUtils;
 
 /**
  * verify same skills
@@ -65,7 +65,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
         handler.sendEmptyMessageDelayed(msgWhat, 300);
 
-        UiThreadUtil.runOnUiThread(new Runnable() {
+        UiThreadUtils.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 finish();

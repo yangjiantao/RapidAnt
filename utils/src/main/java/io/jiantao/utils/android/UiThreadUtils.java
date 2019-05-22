@@ -14,8 +14,9 @@ import androidx.annotation.Nullable;
 
 /**
  * Utility for interacting with the UI thread.
+ * @author open source
  */
-public class UiThreadUtil {
+public class UiThreadUtils {
 
     @Nullable
     private static Handler sMainHandler;
@@ -45,7 +46,7 @@ public class UiThreadUtil {
      * Runs the given {@code Runnable} on the UI thread.
      */
     public static void runOnUiThread(Runnable runnable) {
-        synchronized (UiThreadUtil.class) {
+        synchronized (UiThreadUtils.class) {
             if (sMainHandler == null) {
                 sMainHandler = new Handler(Looper.getMainLooper());
             }
@@ -57,7 +58,7 @@ public class UiThreadUtil {
      * Runs the given {@code Runnable} on the UI thread.
      */
     public static void runOnUiThread(Runnable runnable, int delayMillis) {
-        synchronized (UiThreadUtil.class) {
+        synchronized (UiThreadUtils.class) {
             if (sMainHandler == null) {
                 sMainHandler = new Handler(Looper.getMainLooper());
             }
@@ -69,7 +70,7 @@ public class UiThreadUtil {
      * remove exist runnable that not handle.
      */
     public static void removeCallbacks(Runnable runnable) {
-        synchronized (UiThreadUtil.class) {
+        synchronized (UiThreadUtils.class) {
             if (sMainHandler == null) {
                 sMainHandler = new Handler(Looper.getMainLooper());
             }
