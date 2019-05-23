@@ -2,7 +2,6 @@ package io.jiantao.utils.android;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -17,9 +16,6 @@ import androidx.lifecycle.OnLifecycleEvent;
  * @date 2019-05-14
  */
 public class LifecycleHandler extends Handler implements LifecycleObserver {
-
-    private @NonNull
-    LifecycleOwner mOwner;
 
     public LifecycleHandler(@NonNull LifecycleOwner owner) {
         bindLifecycleOwner(owner);
@@ -45,17 +41,16 @@ public class LifecycleHandler extends Handler implements LifecycleObserver {
      */
     private void bindLifecycleOwner(LifecycleOwner owner) {
         if (owner != null) {
-            mOwner = owner;
             owner.getLifecycle().addObserver(this);
         }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private void onDestroy() {
+    private void onDestroy(LifecycleOwner owner) {
         // 移除队列中所有未执行的消息
         removeCallbacksAndMessages(null);
-        if (mOwner != null) {
-            mOwner.getLifecycle().removeObserver(this);
+        if (owner != null) {
+            owner.getLifecycle().removeObserver(this);
         }
     }
 }
