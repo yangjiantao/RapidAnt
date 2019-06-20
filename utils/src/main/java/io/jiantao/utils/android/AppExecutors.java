@@ -146,7 +146,7 @@ public class AppExecutors {
     private static class MainThreadExecutor implements Executor {
         @Override
         public void execute(@NonNull Runnable command) {
-            UiThreadUtils.runOnUiThread(command);
+            UiThreadUtils.post(command);
         }
     }
 }

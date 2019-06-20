@@ -65,7 +65,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
         handler.sendEmptyMessageDelayed(msgWhat, 300);
 
-        UiThreadUtils.runOnUiThread(new Runnable() {
+        UiThreadUtils.post(new Runnable() {
             @Override
             public void run() {
                 finish();

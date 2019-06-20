@@ -52,13 +52,6 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<ApiRespon
                     });
                 }
             }
-
-            @Override
-            protected void onInactive() {
-                if (call.isCanceled()) {
-                    call.cancel();
-                }
-            }
         };
     }
 }

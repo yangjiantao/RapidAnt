@@ -45,7 +45,7 @@ public class UiThreadUtils {
     /**
      * Runs the given {@code Runnable} on the UI thread.
      */
-    public static void runOnUiThread(Runnable runnable) {
+    public static void post(Runnable runnable) {
         synchronized (UiThreadUtils.class) {
             if (sMainHandler == null) {
                 sMainHandler = new Handler(Looper.getMainLooper());
@@ -57,7 +57,7 @@ public class UiThreadUtils {
     /**
      * Runs the given {@code Runnable} on the UI thread.
      */
-    public static void runOnUiThread(Runnable runnable, int delayMillis) {
+    public static void post(Runnable runnable, int delayMillis) {
         synchronized (UiThreadUtils.class) {
             if (sMainHandler == null) {
                 sMainHandler = new Handler(Looper.getMainLooper());
