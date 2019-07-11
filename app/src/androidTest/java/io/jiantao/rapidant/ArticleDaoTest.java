@@ -20,6 +20,8 @@ import java.util.List;
 import io.jiantao.example.wanandroid.db.AppDatabase;
 import io.jiantao.example.wanandroid.db.dao.ArticleDao;
 import io.jiantao.example.wanandroid.db.entity.WanAndroidArticle;
+import io.jiantao.example.wanandroid.util.LiveDataTestUtil;
+import io.jiantao.example.wanandroid.util.TestUtils;
 
 /**
  * androidTest 只能在application module中进行。
