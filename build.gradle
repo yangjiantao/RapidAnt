@@ -55,7 +55,8 @@ buildscript {
 
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google' }
-        google()
+//        google()
+//        maven { url 'https://maven.google.com' }
         jcenter()
     }
     dependencies {
@@ -69,7 +70,8 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google' }
-        google()
+//        google()
+//        maven { url 'https://maven.google.com' }
         jcenter()
     }
 }
