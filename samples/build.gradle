@@ -14,8 +14,25 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    afterEvaluate {
+        tasks.each {
+            println('task name : ' + it.name)
+            // hook 现有task
+            if (it.name.startsWith("transformClassesAndResourcesWith")) {
+                it.doFirst {
+                    // 打印app/proguard-rules.pro 内容
+                    println 'proguard-rules.pro 内容如下：'
+                    def file = new File('./proguard-rules.pro')
+                    file.eachLine { line ->
+                        println(line)
+                    }
+                }
+            }
         }
     }
 }

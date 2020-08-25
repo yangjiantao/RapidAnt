@@ -3,7 +3,7 @@
 
 - Utils 常用工具类
 
-- NetworkManger 网络库（基于Retrofit封装）
+- NetworkManager 网络库（基于Retrofit封装）
 
 - Images 图片库（基于Glide封装）
 
