@@ -1,6 +1,8 @@
 # RapidAnt
 > 一个提高Android开发效率的库。
 
+- [Notifications](https://github.com/yangjiantao/notifications) 通知相关代码封装
+
 - Utils 常用工具类
 
 - NetworkManager 网络库（基于Retrofit封装）

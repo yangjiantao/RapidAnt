@@ -3,9 +3,9 @@ buildscript {
     // Define versions in a single place
     ext {
         // Sdk and tools
-        compileSdkVersion = 28
+        compileSdkVersion = 30
         minSdkVersion = 19
-        targetSdkVersion = 28
+        targetSdkVersion = 30
 
         // App dependencies
         coreTestingVersion = '2.0.0'
@@ -60,7 +60,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:4.1.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
